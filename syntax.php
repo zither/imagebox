@@ -66,7 +66,7 @@ class syntax_plugin_imagebox extends DokuWiki_Syntax_Plugin
                 $match = Doku_Handler_Parse_Media(substr($match, 3));
 
                 // 查看是否需要设置图片链接
-                preg_match('/(?<=&target=)[^\|&\}]*/', $originalMatch, $result);
+                preg_match('/(?<=&target=)[^\|&\}\s]*/', $originalMatch, $result);
                 if (!empty($result)) {
                     // 外部链接直接使用，此外当作 wiki id，创建内部链接
                     if (filter_var($result[0], FILTER_VALIDATE_URL)) {
