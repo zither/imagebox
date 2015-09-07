@@ -11,8 +11,6 @@ require_once(DOKU_PLUGIN . 'syntax.php');
 
 class syntax_plugin_imagebox extends DokuWiki_Syntax_Plugin
 {
-    protected $data = array();
-
     public function getInfo()
     {
         return array(
@@ -121,8 +119,6 @@ class syntax_plugin_imagebox extends DokuWiki_Syntax_Plugin
                 if (!$match['align'] || $match['align'] == 'center' && !$this->getConf('center_align')) {
                     $match['align'] = 'rien';
                 }
-
-                $this->data['image'] = $match;
 
                 return array($state, $match);
 
