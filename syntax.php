@@ -71,6 +71,7 @@ class syntax_plugin_imagebox extends DokuWiki_Syntax_Plugin
                     // 外部链接直接使用，此外当作 wiki id，创建内部链接
                     if (filter_var($result[0], FILTER_VALIDATE_URL)) {
                         $match['target'] = $result[0];
+                        $match['targetType'] = 'externallink';
                     } else  {
                         $match['target'] = wl($result[0]);
                     }
@@ -139,9 +140,14 @@ class syntax_plugin_imagebox extends DokuWiki_Syntax_Plugin
                     $renderer->doc .= '<div class="thumb2 t' . $match['align'] . '" style="width:' . (isset($match['w']) ? ($match['w'] + 10) . 'px':'auto') . '"><div class="thumbinner">';
                     // 图片链接标签头
                     if (isset($match['target'])) {
+                        $nofollow = '';
+                        if (isset($match['targetType']) && $match['targetType'] === 'externallink') {
+                            $nofollow = 'rel="nofollow"';
+                        }
                         $renderer->doc .= sprintf(
-                            '<a href="%s">',
-                            $match['target']
+                            '<a href="%s" %s>',
+                            $match['target'],
+                            $nofollow
                         );
                     }
                     if ($match['exist']) {
